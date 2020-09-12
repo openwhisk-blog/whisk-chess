@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"runtime"
 
 	"github.com/ChizhovVadim/CounterGo/engine"
@@ -16,33 +15,22 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-const (
-	name   = "Counter"
-	author = "Vadim Chizhov"
-)
+func mkMap(key string, val interface{}) map[string]interface{} {
+	res := make(map[string]interface{})
+	res[key] = val
+	return res
+}
 
-var (
-	versionName = "sciabarracom"
-	buildDate   = "2020/10/10"
-	gitRevision = "master"
-)
-
-// Main is the entry point of OpenWhisk
-func Main(args map[string]interface{}) map[string]interface{} {
-	fmt.Println(name,
-		"VersionName", versionName,
-		"BuildDate", buildDate,
-		"GitRevision", gitRevision,
-		"RuntimeVersion", runtime.Version())
-
+// play one move of the chess engine
+func play(args map[string]interface{}) map[string]interface{} {
 	var engine = engine.NewEngine(func() engine.Evaluator {
 		return eval.NewEvaluationService()
 	})
 
 	var protocol = &uci.Protocol{
-		Name:    name,
-		Author:  author,
-		Version: versionName,
+		Name:    "Counter",
+		Author:  "Vadim Chizhov",
+		Version: "v3.5",
 		Engine:  engine,
 		Options: []uci.Option{
 			&uci.IntOption{Name: "Hash", Min: 4, Max: 1 << 16, Value: &engine.Hash},
@@ -54,26 +42,37 @@ func Main(args map[string]interface{}) map[string]interface{} {
 	res := make(map[string]interface{})
 
 	time := "1000"
-	ok := true
 	fen := ""
+	ok := true
 
 	if t, ok := args["time"].(string); ok {
 		time = t
 	}
 
-	if fen, ok = args["fen"].(string); !ok {
-		res["error"] = "fen is a required argument"
-		return res
+	fen, ok = args["fen"].(string)
+	if ok {
+		move, err := uci.Play(protocol, fen, time)
+		if err != nil {
+			res = mkMap("error", err.Error())
+		} else {
+			res = mkMap("move", move)
+		}
+	} else {
+		res = mkMap("error", "fen is a required argument")
 	}
+	return res
+}
 
-	move, err := uci.Play(protocol, fen, time)
-	if err != nil {
-		res["error"] = err.Error()
-		return res
-	}
+// Main is the entry point of OpenWhisk
+func Main(args map[string]interface{}) map[string]interface{} {
 
-	res["move"] = move
-	return map[string]interface{}{
-		"body": res,
+	method, _ := args["__ow_method"]
+	switch method {
+	case "get":
+		return mkMap("body", indexHTML)
+	case "post":
+		return mkMap("body", play(args))
+	default:
+		return mkMap("error", "unknown method")
 	}
 }
