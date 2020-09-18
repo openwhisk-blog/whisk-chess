@@ -23,6 +23,7 @@ var indexHTML = `<!DOCTYPE html>
           <option value="2500">2.5 seconds (Hard)</option>
         </select><br>
         <div id="pgn"></div>
+<div><a href="https://github.com/openwhisk-blog/whisk-chess">Source Code.</a></div>
 <script>
 var chessURL = location.href
 
