@@ -4,10 +4,10 @@ chess.zip: main/main.go main/index.go
 	zip -r - main |\
 	docker run -i $(IMG) -compile main >$@
 
-main/index.go: index.html
+main/index.go: web/index.html
 	echo "package main" >$@
 	echo 'var indexHTML = `<!DOCTYPE html>' >>$@
-	grep -v REMOVE index.html >>$@
+	cat web/index.html | sed 's/ + "api\/default\/chess"//' >> $@
 	echo '`;' >>$@
 
 deploy: chess.zip
