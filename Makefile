@@ -15,4 +15,4 @@ deploy: chess.go.zip
 	nim action get chess --url
 
 clean:
-	-rm chess chess.go.zip
+	-rm -rf chess.go.zip
