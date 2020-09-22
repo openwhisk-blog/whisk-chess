@@ -9,6 +9,8 @@ Here is a list of deployments in the various cloud:
 - [Naver](https://wka9bi13u3.apigw.ntruss.com/chess/chess/ZC2o7bFh0x/http)
 - [Nimbella](https://apigcp.nimbella.io/api/v1/web/msciabar-zc3thebgxgh/default/chess)
 
+You can read more on [this blog post](https://openwhisk.blog/portability).
+
 You can deploy your own serverless chess app to the [Nimbella serverless cloud](https://nimbella.com) in three steps. Skip 1 & 2 if you already have an account setup locally on your machine.
 
 1. Download the [Nimbella CLI](https://apigcp.nimbella.io/downloads/nim/nim.html#install-the-nimbella-command-line-tool-nim).
