@@ -8,6 +8,7 @@ Here is a list of deployments in the various cloud:
 - [IBM Cloud](https://eu-de.functions.appdomain.cloud/api/v1/web/a1d40f6b-e5e3-4f07-8f92-77b525392253/default/chess)
 - [Naver](https://wka9bi13u3.apigw.ntruss.com/chess/chess/ZC2o7bFh0x/http)
 - [Nimbella](https://apigcp.nimbella.io/api/v1/web/msciabar-zc3thebgxgh/default/chess)
+- [Nimbella & Netlify](https://whisk-chess.netlify.app)
 
 And here you can see it also running in a custom built AWS EKS Cluster:
 
