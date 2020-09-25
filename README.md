@@ -9,7 +9,13 @@ Here is a list of deployments in the various cloud:
 - [Naver](https://wka9bi13u3.apigw.ntruss.com/chess/chess/ZC2o7bFh0x/http)
 - [Nimbella](https://apigcp.nimbella.io/api/v1/web/msciabar-zc3thebgxgh/default/chess)
 
+And here you can see it also running in a custom built AWS EKS Cluster:
+
+![Whisk Chess in AWS EKS](https://openwhisk.blog/post/advocate/openwhisk-portable-serverless/053.png)
+
 You can read more on [this blog post](https://openwhisk.blog/portability).
+
+# Deployment
 
 You can deploy your own serverless chess app to the [Nimbella serverless cloud](https://nimbella.com) in three steps. Skip 1 & 2 if you already have an account setup locally on your machine.
 
