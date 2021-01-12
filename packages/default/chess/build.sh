@@ -2,10 +2,11 @@
 
 set -e
 
-pushd ../../..
-echo "package main" > main/index.go
-echo 'var indexHTML = `<!DOCTYPE html>' >> main/index.go
-cat web/index.html | sed 's/ + "api\/default\/chess"//' >> main/index.go
-echo '`;' >> main/index.go
-zip -r packages/default/chess/chess.go.zip main
+pushd ../../../main
+echo "package main" > index.go
+echo 'var indexHTML = `<!DOCTYPE html>' >> index.go
+cat ../web/index.html | sed 's/ + "api\/default\/chess"//' >> index.go
+echo '`;' >> index.go
+zip -r ../src.zip *
+docker run -i openwhisk/action-golang-v1.15:latest <../src.zip -compile main >../packages/default/chess/chess.go.zip
 popd
